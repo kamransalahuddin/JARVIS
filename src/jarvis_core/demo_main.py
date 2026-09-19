@@ -1,9 +1,9 @@
 import cv2
-from assistant_runtime.nose_cam import track_nose
+from jarvis_core.nose_cam import track_nose
 from ultralytics import YOLO
-from assistant_runtime.YOLO import detect_objects
+from jarvis_core.YOLO import detect_objects
 from tracker import Tracker
-from assistant_runtime.hand_tracker import run_hand_tracker
+from jarvis_core.hand_tracker import run_hand_tracker
 import os
 
 model = YOLO("yolo26n.pt")

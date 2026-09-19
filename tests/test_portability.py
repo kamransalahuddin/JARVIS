@@ -29,7 +29,7 @@ class PortabilityTests(unittest.TestCase):
         with patch.dict(os.environ, {}, clear=True), patch.dict(sys.modules, {
             "serial": serial, "tracker": Mock(), "dotenv": Mock()
         }):
-            module = load_file("nose_test", "src/assistant_runtime/nose_cam.py")
+            module = load_file("nose_test", "src/jarvis_core/nose_cam.py")
             module.send_coordinates_to_arduino(12, -7)
         serial.Serial.assert_not_called()
 
@@ -38,18 +38,18 @@ class PortabilityTests(unittest.TestCase):
         with patch.dict(os.environ, {"ARDUINO_PORT": "COM9"}, clear=True), patch.dict(sys.modules, {
             "serial": serial, "tracker": Mock(), "dotenv": Mock()
         }), patch("time.sleep"):
-            module = load_file("nose_test", "src/assistant_runtime/nose_cam.py")
+            module = load_file("nose_test", "src/jarvis_core/nose_cam.py")
             module.send_coordinates_to_arduino(12, -7)
         serial.Serial.assert_called_once_with("COM9", 115200)
         serial.Serial.return_value.write.assert_called_once_with(b"12,-7\r")
 
     def test_disabled_lights_do_not_send_commands(self):
-        import assistant_runtime
+        import jarvis_core
         plugs = Mock()
-        with patch.dict(sys.modules, {"assistant_runtime.tp_link": plugs}), patch.object(
-            assistant_runtime, "tp_link", plugs, create=True
+        with patch.dict(sys.modules, {"jarvis_core.tp_link": plugs}), patch.object(
+            jarvis_core, "tp_link", plugs, create=True
         ), patch.dict(os.environ, {"ENABLE_SMART_LIGHTS": "false"}):
-            module = load_file("lights_test", "src/assistant_runtime/light_logic.py")
+            module = load_file("lights_test", "src/jarvis_core/light_logic.py")
             for gesture in ["Pointing_Up", "Victory", "Open_Palm", "Closed_Fist"]:
                 module.light_logic(gesture)
         self.assertEqual(plugs.mock_calls, [])
@@ -73,10 +73,10 @@ class PortabilityTests(unittest.TestCase):
         fake_genai = Mock()
         with patch.dict(sys.modules, {
             "rag_system.embedding": fake_embedding,
-            "assistant_runtime.AI": fake_ai,
+            "jarvis_core.AI": fake_ai,
             "google.genai": fake_genai,
         }), patch("google.genai", fake_genai):
-            module = load_file("assistant_runtime.scene_test", "src/assistant_runtime/scene_monitor.py")
+            module = load_file("jarvis_core.scene_test", "src/jarvis_core/scene_monitor.py")
         frame = np.array([[[10, 20, 30]]], dtype=np.uint8)
         module.compare_scenes(frame, frame)
         image = fake_embedding.model.encode.call_args_list[0].args[0]["image"]
@@ -92,8 +92,8 @@ class PortabilityTests(unittest.TestCase):
             root = Path(folder)
             (root / "external/OpenSeeFace").mkdir(parents=True)
             (root / "external/OpenSeeFace/tracker.py").touch()
-            (root / "src/assistant_runtime").mkdir(parents=True)
-            (root / "src/assistant_runtime/gesture_recognizer.task").touch()
+            (root / "src/jarvis_core").mkdir(parents=True)
+            (root / "src/jarvis_core/gesture_recognizer.task").touch()
             try:
                 with patch.object(module, "ROOT", root), patch.dict(os.environ, {}, clear=True), patch.object(sys, "argv", ["start.py"]), patch.object(module.runpy, "run_module") as run:
                     with self.assertRaisesRegex(SystemExit, "GEMINI_API_KEY"):

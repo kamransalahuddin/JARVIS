@@ -1,15 +1,15 @@
 import cv2
-from assistant_runtime.nose_cam import track_nose, send_coordinates_to_arduino
+from jarvis_core.nose_cam import track_nose, send_coordinates_to_arduino
 from ultralytics import YOLO
-from assistant_runtime.YOLO import detect_objects
+from jarvis_core.YOLO import detect_objects
 from tracker import Tracker
-from assistant_runtime.hand_tracker import run_hand_tracker
-from assistant_runtime import AI
+from jarvis_core.hand_tracker import run_hand_tracker
+from jarvis_core import AI
 import threading
 import time
 import os
 # Load the model
-from assistant_runtime.scene_monitor import compare_scenes, pass_image
+from jarvis_core.scene_monitor import compare_scenes, pass_image
 model = YOLO("yolo26n.pt")
 start = int(time.monotonic())
 

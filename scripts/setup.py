@@ -57,7 +57,7 @@ def main():
         run("git", "-C", checkout, "apply", "--check", patch)
         run("git", "-C", checkout, "apply", patch)
 
-    model = ROOT / "src" / "assistant_runtime" / "gesture_recognizer.task"
+    model = ROOT / "src" / "jarvis_core" / "gesture_recognizer.task"
     if not model.exists():
         temporary = model.with_suffix(".download")
         try:

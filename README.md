@@ -52,7 +52,7 @@ JARVIS/
 ├── requirements/              Direct dependencies, complete lock, experiments, archive
 └── src/
     ├── main.py                Application entry point
-    ├── assistant_runtime/  Vision, voice, scene and device integration
+    ├── jarvis_core/  Vision, voice, scene and device integration
     └── rag_system/            Knowledge loading and embedding retrieval
 ```
 
@@ -66,4 +66,4 @@ Future work includes testing on more operating systems, improving cloud/device f
 
 ## Attribution
 
-The gesture component retains its existing [Apache 2.0 license](src/assistant_runtime/LICENSE.txt) and author credit. Face tracking uses [OpenSeeFace](https://github.com/emilianavt/OpenSeeFace). See [third-party notices](docs/THIRD_PARTY.md) for component and model sources. No new project-wide license is asserted by this cleanup.
+The gesture component retains its existing [Apache 2.0 license](src/jarvis_core/LICENSE.txt) and author credit. Face tracking uses [OpenSeeFace](https://github.com/emilianavt/OpenSeeFace). See [third-party notices](docs/THIRD_PARTY.md) for component and model sources. No new project-wide license is asserted by this cleanup.
