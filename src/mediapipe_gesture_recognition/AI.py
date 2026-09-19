@@ -1,7 +1,11 @@
 import os
 from google import genai
 from ollama import chat
-import mlx_whisper
+import platform
+if platform.system() == "Darwin" and platform.machine() == "arm64":
+        import mlx_whisper
+else:
+        import whisper
 import sounddevice as sd
 import time
 import numpy as np
@@ -59,7 +63,7 @@ The user's name is Kamran. Since input text is provided to the AI model using a 
                 system_instruction = """Summarize the conversation context clearly and compactly."""
         
         response = client.models.generate_content(
-                model="gemini-3.1-flash-lite",
+                model=os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite"),
                 config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
                 tools=[grounding_tool]
@@ -71,6 +75,7 @@ The user's name is Kamran. Since input text is provided to the AI model using a 
 
 def jarvis_ai():
         global pre_context_text
+        whisper_model = None
         input_matrix = []
         stream.start()
         silence_duration = 0
@@ -98,7 +103,12 @@ def jarvis_ai():
                                         break
                         if input_matrix != []:
                                 full_audio = np.concatenate(input_matrix)
-                                pre_context_text = mlx_whisper.transcribe(full_audio, language="en")["text"]
+                                if platform.system() == "Darwin" and platform.machine() == "arm64":
+                                        pre_context_text = mlx_whisper.transcribe(full_audio, language="en")["text"]
+                                else:
+                                        if whisper_model is None:
+                                                whisper_model = whisper.load_model("tiny")
+                                        pre_context_text = whisper_model.transcribe(full_audio, language="en", fp16=False)["text"]
 
                                 retrieved_context = embed(pre_context_text)
                                 embedded = True
@@ -135,8 +145,8 @@ def text_to_speech(ai_text):
                 #JARVIS Speech with Eleven Labs
                 audio_stream = elevenlabs.text_to_speech.stream(
                 text=ai_text,
-                voice_id="NNl6r8mD7vthiJatiJt1",  # "Bradford - British Narrator, Storyteller
-                model_id="eleven_flash_v2_5",
+                voice_id=os.getenv("ELEVENLABS_VOICE_ID", "NNl6r8mD7vthiJatiJt1"),  # "Bradford - British Narrator, Storyteller
+                model_id=os.getenv("ELEVENLABS_MODEL", "eleven_flash_v2_5"),
                 output_format="mp3_44100_128",
                 )
 
@@ -167,8 +177,8 @@ def context_window():
                                 
 
         compacted = pass_voice_input(text)
-        with open("knowledge.txt", "a") as file:
-                file.write("\n New memory:" + compacted+  "\n")
+        with open("src/rag_system/knowledge.txt", "a") as file:
+                file.write("\n#\n New memory:" + compacted+  "\n")
         threading.Thread(
                 target=embed_new_knowledge,
                 args=(compacted,)

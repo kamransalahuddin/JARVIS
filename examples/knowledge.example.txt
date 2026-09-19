@@ -1,0 +1,5 @@
+The user is trying a personal robotics assistant.
+#
+The workspace contains a desk and a chair.
+#
+The user prefers concise spoken answers.

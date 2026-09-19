@@ -25,9 +25,6 @@ def embed(text):
     top_three = np.argsort(similarities)[-3:][::-1]
         
 
-    return [ context[top_three[0]],
-     context[top_three[1]],
-     context[top_three[2]]
-    ]
+    return [context[i] for i in top_three]
 
 

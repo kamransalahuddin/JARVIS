@@ -4,11 +4,15 @@ from ultralytics import YOLO
 from mediapipe_gesture_recognition.YOLO import detect_objects
 from tracker import Tracker
 from mediapipe_gesture_recognition.hand_tracker import run_hand_tracker
+import os
 
 model = YOLO("yolo26n.pt")
 
-webcam = cv2.VideoCapture(0)
+webcam = cv2.VideoCapture(int(os.getenv("CAMERA_INDEX", "0")))
 ret, img = webcam.read()
+if not ret or img is None:
+        webcam.release()
+        raise RuntimeError("Cannot read the camera. Check camera permissions and CAMERA_INDEX in .env.")
 
 img_h, img_w = img.shape[:2]
 tracker = Tracker(
@@ -33,3 +37,6 @@ while True:
     cv2.imshow("Jarvis", img)
     if cv2.waitKey(1) & 0xFF == 27:
         break
+
+webcam.release()
+cv2.destroyAllWindows()

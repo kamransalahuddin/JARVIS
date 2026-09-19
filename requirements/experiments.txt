@@ -1,0 +1,5 @@
+# Additional dependencies for voice_transcription.py; not used by src/main.py.
+-r runtime.txt
+datasets[audio]
+accelerate
+safetensors

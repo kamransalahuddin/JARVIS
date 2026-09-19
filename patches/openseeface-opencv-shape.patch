@@ -1,0 +1,15 @@
+diff --git a/tracker.py b/tracker.py
+index f0588c2..0c53687 100644
+--- a/tracker.py
++++ b/tracker.py
+@@ -783,8 +783,8 @@ class Tracker():
+             face_info.translation = np.array([0.0, 0.0, 0.0], np.float32)
+             return False, np.zeros(4), np.zeros(3), 99999., pts_3d, lms
+         else:
+-            face_info.rotation = np.transpose(face_info.rotation)
+-            face_info.translation = np.transpose(face_info.translation)
++            face_info.rotation = np.asarray(face_info.rotation).reshape(3)
++            face_info.translation = np.asarray(face_info.translation).reshape(3)
+ 
+         rmat, _ = cv2.Rodrigues(rotation)
+         inverse_rotation = np.linalg.inv(rmat)

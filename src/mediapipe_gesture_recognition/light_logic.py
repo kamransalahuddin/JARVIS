@@ -1,10 +1,13 @@
 import mediapipe_gesture_recognition.tp_link as tp_link
 import time
 import asyncio
+import os
 last_gesture = ""
 none_start_time = None
 elapsed = None
 def light_logic(latest_gesture):
+    if os.getenv("ENABLE_SMART_LIGHTS", "false").lower() != "true":
+        return
     global last_gesture
     global elapsed
     global none_start_time

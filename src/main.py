@@ -7,16 +7,20 @@ from mediapipe_gesture_recognition.hand_tracker import run_hand_tracker
 from mediapipe_gesture_recognition import AI
 import threading
 import time
+import os
 # Load the model
 from mediapipe_gesture_recognition.scene_monitor import compare_scenes, pass_image
 model = YOLO("yolo26n.pt")
 start = int(time.monotonic())
 
-webcam = cv2.VideoCapture(0)
+webcam = cv2.VideoCapture(int(os.getenv("CAMERA_INDEX", "0")))
 time.sleep(1)
 
 #webcam.set(cv2.CAP_PROP_BRIGHTNESS, 100)
 ret, img = webcam.read()
+if not ret or img is None:
+    webcam.release()
+    raise RuntimeError("Cannot read the camera. Check camera permissions and CAMERA_INDEX in .env.")
 
 img_h, img_w = img.shape[:2]
 AI_threaded = threading.Thread(target=AI.jarvis_ai, daemon=True)

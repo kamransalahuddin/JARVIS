@@ -1,0 +1,13 @@
+# Camera demo only. No API keys, MLX transcription, or personal-memory models.
+numpy==1.26.4
+mediapipe==0.10.35
+opencv-python==4.11.0.86
+opencv-contrib-python==4.11.0.86
+protobuf==4.25.8
+onnxruntime==1.29.0
+pillow==12.3.0
+ultralytics==8.4.135
+lap==0.5.13
+pyserial==3.5
+python-kasa==0.10.2
+python-dotenv==1.2.3

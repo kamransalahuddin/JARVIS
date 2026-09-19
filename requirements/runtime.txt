@@ -1,0 +1,28 @@
+# Direct dependencies, including portability fixes validated in docs/DEPENDENCIES.md.
+numpy==1.26.4
+mediapipe==0.10.35
+# Both upstream projects require a cv2 distribution. Keep their wheels aligned.
+opencv-python==4.11.0.86
+opencv-contrib-python==4.11.0.86
+protobuf==4.25.8
+onnxruntime==1.29.0
+pillow==12.3.0
+ultralytics==8.4.135
+lap==0.5.13
+pyserial==3.5
+python-kasa==0.10.2
+python-dotenv==1.2.3
+sounddevice==0.5.6
+mlx-whisper==0.4.3; sys_platform == "darwin" and platform_machine == "arm64"
+mlx==0.32.2; sys_platform == "darwin" and platform_machine == "arm64"
+sentence-transformers==6.0.1
+transformers==5.17.0
+torch==2.13.0
+torchvision==0.28.0
+google-genai==2.20.0
+elevenlabs==2.68.0
+# Imported by AI.py even though the current conversation path uses Gemini.
+ollama==0.6.2
+
+# CPU-compatible speech fallback outside Apple Silicon.
+openai-whisper; sys_platform != "darwin" or platform_machine != "arm64"

@@ -1,13 +1,28 @@
+# Local environments and editor state
 .DS_Store
-__pycache__/
-*.pyc
-.env
 .venv/
+.venv-jarvis/
+venv/
+.env
+.env.*
+!.env.example
 .vscode/
+settings.json
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Private memory and generated camera/audio data
+knowledge.txt
+chatcontext.txt
+frame*.jpg
+*.wav
+*.mp3
+*.mp4
+
+# Downloaded models and external dependencies
 *.pt
 *.tflite
-*.mp4
-knowledge.txt
-src/rag_system/knowledge.txt
-knowledge.txt
-src/rag_system/knowledge.txt
+*.task
+*.onnx
+external/

@@ -2,15 +2,23 @@ import cv2
 import serial
 import sys
 import time
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
 # REPLACED: MediaPipe imports/detector with OpenSeeFace.
-sys.path.append("/Users/kamransalahuddin/OpenSeeFace")
+load_dotenv()
+sys.path.insert(0, os.getenv("OPENSEEFACE_PATH", str(Path(__file__).resolve().parents[2] / "external" / "OpenSeeFace")))
 from tracker import Tracker
 
-arduinoData = serial.Serial('/dev/cu.usbserial-A5069RR4', 115200)
-time.sleep(2)
+arduino_port = os.getenv("ARDUINO_PORT", "").strip()
+arduinoData = serial.Serial(arduino_port, 115200) if arduino_port else None
+if arduinoData is not None:
+    time.sleep(2)
 
 def send_coordinates_to_arduino(x, y):
+    if arduinoData is None:
+        return
     coordinates = f"{x},{y}\r"
     arduinoData.write(coordinates.encode())
     print(f"X{x}Y{y}\n")
