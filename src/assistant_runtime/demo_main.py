@@ -1,9 +1,9 @@
 import cv2
-from mediapipe_gesture_recognition.nose_cam import track_nose
+from assistant_runtime.nose_cam import track_nose
 from ultralytics import YOLO
-from mediapipe_gesture_recognition.YOLO import detect_objects
+from assistant_runtime.YOLO import detect_objects
 from tracker import Tracker
-from mediapipe_gesture_recognition.hand_tracker import run_hand_tracker
+from assistant_runtime.hand_tracker import run_hand_tracker
 import os
 
 model = YOLO("yolo26n.pt")

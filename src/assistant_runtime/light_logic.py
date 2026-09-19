@@ -1,4 +1,4 @@
-import mediapipe_gesture_recognition.tp_link as tp_link
+import assistant_runtime.tp_link as tp_link
 import time
 import asyncio
 import os

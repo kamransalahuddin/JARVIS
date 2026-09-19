@@ -5,7 +5,7 @@
 | Component | Authoritative source |
 | --- | --- |
 | Face tracking and ONNX models | [OpenSeeFace](https://github.com/emilianavt/OpenSeeFace), including its LICENSE and Licenses directory |
-| Gesture component license | [Preserved Apache 2.0 text](../src/mediapipe_gesture_recognition/LICENSE.txt) |
+| Gesture component license | [Preserved Apache 2.0 text](../src/assistant_runtime/LICENSE.txt) |
 | Gesture recognition and task model | [Google MediaPipe](https://developers.google.com/edge/mediapipe/solutions/vision/gesture_recognizer/python) |
 | YOLO26 weights and runtime | [Ultralytics YOLO26](https://docs.ultralytics.com/models/yolo26/) |
 | Multimodal embeddings | [Qwen3-VL-Embedding-2B model card](https://huggingface.co/Qwen/Qwen3-VL-Embedding-2B) |

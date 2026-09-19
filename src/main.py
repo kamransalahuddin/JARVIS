@@ -1,15 +1,15 @@
 import cv2
-from mediapipe_gesture_recognition.nose_cam import track_nose, send_coordinates_to_arduino
+from assistant_runtime.nose_cam import track_nose, send_coordinates_to_arduino
 from ultralytics import YOLO
-from mediapipe_gesture_recognition.YOLO import detect_objects
+from assistant_runtime.YOLO import detect_objects
 from tracker import Tracker
-from mediapipe_gesture_recognition.hand_tracker import run_hand_tracker
-from mediapipe_gesture_recognition import AI
+from assistant_runtime.hand_tracker import run_hand_tracker
+from assistant_runtime import AI
 import threading
 import time
 import os
 # Load the model
-from mediapipe_gesture_recognition.scene_monitor import compare_scenes, pass_image
+from assistant_runtime.scene_monitor import compare_scenes, pass_image
 model = YOLO("yolo26n.pt")
 start = int(time.monotonic())
 

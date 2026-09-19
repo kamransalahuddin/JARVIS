@@ -19,7 +19,7 @@ def main():
     sys.path.insert(0, str(ROOT / "src"))
     tracker = Path(os.getenv("OPENSEEFACE_PATH") or ROOT / "external" / "OpenSeeFace").expanduser().resolve()
     sys.path.insert(0, str(tracker))
-    missing = [str(path) for path in [tracker / "tracker.py", ROOT / "src/mediapipe_gesture_recognition/gesture_recognizer.task"] if not path.is_file()]
+    missing = [str(path) for path in [tracker / "tracker.py", ROOT / "src/assistant_runtime/gesture_recognizer.task"] if not path.is_file()]
     if missing:
         raise SystemExit("Run scripts/setup.py first. Missing: " + ", ".join(missing))
     if os.getenv("ENABLE_SMART_LIGHTS", "false").lower() == "true":
@@ -33,7 +33,7 @@ def main():
             raise SystemExit("Install mpv for speech playback. See docs/SETUP.md.")
         if not (ROOT / "src/rag_system/knowledge.txt").is_file():
             raise SystemExit("Run setup to create starter memory, or restore src/rag_system/knowledge.txt.")
-    module = "mediapipe_gesture_recognition.demo_main" if args.vision_only else "main"
+    module = "assistant_runtime.demo_main" if args.vision_only else "main"
     runpy.run_module(module, run_name="__main__")
 
 

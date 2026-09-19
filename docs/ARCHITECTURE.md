@@ -28,7 +28,7 @@ flowchart TD
 | File | Role |
 | --- | --- |
 | `src/main.py` | Webcam loop, tracking calls, scene timing, voice thread, exit controls |
-| `src/mediapipe_gesture_recognition/nose_cam.py` | Face landmarks, frame-center offsets, optional serial output |
+| `src/assistant_runtime/nose_cam.py` | Face landmarks, frame-center offsets, optional serial output |
 | `hand_tracker.py` | Asynchronous MediaPipe gesture recognition and landmark drawing |
 | `light_logic.py`, `tp_link.py` | Gesture state transitions and optional Kasa commands |
 | `AI.py` | Audio capture, transcription, Gemini chat, speech playback, memory summarization |
@@ -39,7 +39,7 @@ flowchart TD
 | `demo_main.py` | Existing camera-only demo, including YOLO |
 | `scripts/setup.py`, `scripts/start.py` | Installation and launch wrappers; no replacement application architecture |
 
-Paths without a prefix in the table belong to `src/mediapipe_gesture_recognition/`.
+Paths without a prefix in the table belong to `src/assistant_runtime/`.
 
 ## Entry points and experiments
 
