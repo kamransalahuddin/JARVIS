@@ -2,11 +2,38 @@
 
 **A personal robotics assistant that sees, listens, remembers, and responds.**
 
+![The real JARVIS prototype: controller breadboard, two-servo camera mount, wiring, and strapped mounting plate](docs/media/jarvis-overview.jpg)
+
+[Explore the 3D model](#3d-model) · [Hardware close-ups](#the-hardware) · [Get started](#running-the-project)
+
 JARVIS combines a webcam on a two-servo mount with face tracking, hand gestures, voice interaction, and personal memory. I built it to explore how an assistant can understand both what is happening in a room and what it already knows about its user.
 
-The original application was written as a hands-on learning project without AI-generated code. Repository cleanup, setup helpers, and small portability fixes were subsequently assisted by AI; the original modules and application flow are preserved.
+The original application was written as a hands-on learning project without AI-generated code. Repository cleanup, setup helpers, small portability fixes, and the photo-referenced 3D model were subsequently assisted by AI; the original modules and application flow are preserved.
 
 [Setup guide](docs/SETUP.md) · [Dependency inventory](docs/DEPENDENCIES.md) · [Architecture](docs/ARCHITECTURE.md) · [Hardware](hardware/README.md)
+
+## The hardware
+
+The real prototype brings together a camera on a pan-and-tilt servo mount, a breadboard controller, exposed jumper wiring, and a black mounting plate with two fastening straps.
+
+| Camera and servo assembly | Breadboard and controller |
+| --- | --- |
+| ![Close-up of the JARVIS camera, blue servos, triangular bracket, and servo arm](docs/media/jarvis-camera.jpg) | ![Close-up of the JARVIS controller board, breadboard, USB connection, and jumper wiring](docs/media/jarvis-controller.jpg) |
+
+These three photographs were selected from the original 34-image reference set to show the overall build and its two main assemblies.
+
+## 3D model
+
+[![Photo-referenced 3D reconstruction of JARVIS](docs/media/jarvis-model-preview.png)](docs/model/README.md)
+
+The model recreates the mounting plate, straps, pan-and-tilt camera, breadboard, controller, and wiring as 57 named component/material meshes.
+
+- **[Download the complete 3D package](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS-3D.zip)** — GLB, OBJ/MTL, offline viewer, and editable generation source.
+- **[Download the GLB model](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS.glb)** — import into a compatible 3D editor or viewer.
+- **[Download the interactive viewer](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS-viewer.html)** — open the downloaded HTML in a browser, then drag to rotate, scroll to zoom, or hide the wiring. Everything is bundled for offline use.
+- [Model details and rebuild instructions](docs/model/README.md).
+
+GitHub displays the preview above; the interactive viewer runs after download. This is a visual reconstruction with estimated dimensions, not a measured scan or manufacturing-ready CAD model.
 
 ## What it does
 
@@ -45,7 +72,7 @@ JARVIS/
 ├── scripts/                   Setup and launch helpers
 ├── requirements.txt           Default pinned installation
 ├── .env.example               API keys and smart-plug configuration template
-├── docs/                      Setup, architecture, dependency audit
+├── docs/                      Setup, architecture, photos, and 3D model
 ├── examples/                  Non-personal starter knowledge
 ├── hardware/                  Original Arduino firmware and wiring notes
 ├── patches/                   Existing OpenSeeFace compatibility fix
