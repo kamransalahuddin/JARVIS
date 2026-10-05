@@ -26,14 +26,14 @@ These three photographs were selected from the original 34-image reference set t
 
 [![Photo-referenced 3D reconstruction of JARVIS](docs/media/jarvis-model-preview.png)](docs/model/README.md)
 
-The model recreates the mounting plate, straps, pan-and-tilt camera, breadboard, controller, and wiring as 57 named component/material meshes.
+The model recreates the mounting plate, straps, pan-and-tilt camera, breadboard, controller, and wiring as 95 named component/material meshes. This edition adds SG90-style servo details, an Arduino Nano based on official CAD, a 400-socket breadboard, jumper connectors, and curved Velcro straps.
 
 - **[Download the complete 3D package](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS-3D.zip)** — GLB, OBJ/MTL, offline viewer, and editable generation source.
 - **[Download the GLB model](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS.glb)** — import into a compatible 3D editor or viewer.
-- **[Download the interactive viewer](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS-viewer.html)** — open the downloaded HTML in a browser, then drag to rotate, scroll to zoom, or hide the wiring. Everything is bundled for offline use.
+- **[Download the interactive viewer](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS-viewer.html)** — open the downloaded HTML in a browser, then drag to rotate, scroll to zoom, or use the electronics and servo close-up views. Everything is bundled for offline use.
 - [Model details and rebuild instructions](docs/model/README.md).
 
-GitHub displays the preview above; the interactive viewer runs after download. This is a visual reconstruction with estimated dimensions, not a measured scan or manufacturing-ready CAD model.
+GitHub displays the preview above; the interactive viewer runs after download. Standard component dimensions come from hardware references; assembly placement and cable routes are estimated from the photos. This is a visual reconstruction, not a measured scan or manufacturing-ready CAD model.
 
 ## What it does
 

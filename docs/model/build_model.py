@@ -4,6 +4,7 @@ Only Python stdlib + numpy required. GLB exports in metres; OBJ exports in mm.
 from pathlib import Path
 import json, math, struct, collections
 import numpy as np
+from scipy.spatial import ConvexHull
 P=Path(__file__).resolve().parent
 materials={
  'chassis':('#171b21',.84,.05),'strap':('#111216',.99,0),'edge':('#292c31',.88,0),
@@ -19,10 +20,19 @@ def add(name,mat,v,f):
  if key not in parts:parts[key]=[[],[]]
  vv,ff=parts[key]; off=len(vv);vv.extend(np.asarray(v).tolist());ff.extend((np.asarray(f)+off).tolist())
 def box(name,mat,c,s,R=None):
- v=np.array([[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]])*np.array(s)/2
+ # Small real bevels catch reflections on the mechanical edges.
+ size=np.array(s,float);bevel=min(.45,min(size)*.18)
+ corners=np.array([[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]])
+ v=[]
+ for sign in corners:
+  for axis in range(3):
+   pt=sign*size/2;pt[axis]-=sign[axis]*bevel;v.append(pt)
+ v=np.array(v);hull=ConvexHull(v);f=hull.simplices.copy()
+ for i,face in enumerate(f):
+  a,b,c0=v[face]
+  if np.dot(np.cross(b-a,c0-a),hull.equations[i,:3])<0:f[i]=face[::-1]
  if R is not None:v=v@R.T
  v+=c
- f=[[0,2,1],[0,3,2],[4,5,6],[4,6,7],[0,1,5],[0,5,4],[3,7,6],[3,6,2],[0,4,7],[0,7,3],[1,2,6],[1,6,5]]
  add(name,mat,v,f)
 def tube(name,mat,points,r,segments=10):
  pts=np.array(points,float);v=[]
@@ -119,6 +129,14 @@ for x in [-16,16]:
  for yy in [37,40,43,46]:cyl('Servo arm holes','hole',(x+(-2.55 if x<0 else 2.55),yy,8),.55,.2,(1,0,0),8)
 box('Tilt servo','blue',(0,47,5),(26,13,23))
 box('Tilt servo','blue_edge',(0,52,5),(32,3,23))
+# Motor cans and gears inside the translucent blue cases.
+cyl('Servo internal motor','silver',(0,20,-6),4,16)
+for x in [-5,1,6]:
+ cyl('Servo internal gears','cream',(x,30,-6),3.8,1.4)
+ for k in range(12):
+  ang=k*math.pi/6
+  box('Servo gear teeth','cream',(x+3.7*math.cos(ang),30,-6+3.7*math.sin(ang)),(1.3,1.4,1.3))
+cyl('Tilt motor can','silver',(0,47,5),4,18,(1,0,0))
 # Camera board faces the straps, tilted upward 45 degrees.
 a=-math.radians(46);R=np.array([[1,0,0],[0,math.cos(a),-math.sin(a)],[0,math.sin(a),math.cos(a)]]);C=np.array([0,64,12]);axis=R[:,2]
 def campt(v):return C+R@np.array(v)
@@ -136,7 +154,7 @@ for t in range(32):
 for depth in [14,15,16,17]:cyl('Lens focus rings','edge',campt((0,0,depth)),6.9,.35,axis,48)
 cyl('Optical glass','glass',campt((0,0,23.6)),6.9,.3,axis,48)
 cyl('Lens aperture','black',campt((0,0,23.8)),3.2,.08,axis,40)
-for i in range(7):box('Camera PCB components','cream',campt((-11+i*3.4,-11,1.2)),(1.3,2,.5),R)
+
 # Jumper wires. Individual routes approximate the visible bundle; these are not a wiring diagram.
 routes=[
  ('red',[(-7,13,-60),(-24,48,-50),(-30,63,-72),(-7,36,-94),(-6,19,-100)]),
@@ -163,6 +181,7 @@ wire('USB cable','white',[(0,17,-126),(1,16,-137),(18,5,-145),(42,-11,-140),(57,
 box('Power cable','black',(25,12,99),(7,6,20))
 wire('Power cable','black',[(25,12,106),(37,12,122),(48,2,138),(49,-17,140),(43,-31,131)],2)
 wire('Power cable','black',[(-13,11,0),(-22,6,4),(-38,0,0),(-56,-20,4),(-51,-32,29)],1.8)
+exec((P/'components.py').read_text())
 # Export each named assembly/material as an independently editable mesh.
 meshes=[]
 for (name,mat),(v,f) in parts.items():
