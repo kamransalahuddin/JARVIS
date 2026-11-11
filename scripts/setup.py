@@ -1,4 +1,4 @@
-"""Install JARVIS dependencies and assets without overwriting personal settings."""
+"""Install KODA dependencies and assets without overwriting personal settings."""
 import argparse
 from pathlib import Path
 import platform
@@ -26,13 +26,13 @@ def main():
     if shutil.which("git") is None:
         raise SystemExit("Install Git, then run setup again: https://git-scm.com/downloads")
 
-    env = ROOT / ".venv-jarvis"
+    env = ROOT / ".venv-koda"
     if not env.exists():
         venv.EnvBuilder(with_pip=True).create(env)
     python = env / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
     if not python.exists():
-        raise SystemExit("Existing .venv-jarvis is incomplete. Rename it and run setup again.")
-    run(python, "-c", "import sys; assert sys.version_info[:2] == (3, 11), 'Existing .venv-jarvis must use Python 3.11'")
+        raise SystemExit("Existing .venv-koda is incomplete. Rename it and run setup again.")
+    run(python, "-c", "import sys; assert sys.version_info[:2] == (3, 11), 'Existing .venv-koda must use Python 3.11'")
     run(python, "-m", "pip", "install", "--upgrade", "pip")
     if args.vision_only:
         requirements = "requirements/vision.txt"
@@ -57,7 +57,7 @@ def main():
         run("git", "-C", checkout, "apply", "--check", patch)
         run("git", "-C", checkout, "apply", patch)
 
-    model = ROOT / "src" / "jarvis_core" / "gesture_recognizer.task"
+    model = ROOT / "src" / "koda_core" / "gesture_recognizer.task"
     if not model.exists():
         temporary = model.with_suffix(".download")
         try:
@@ -70,7 +70,7 @@ def main():
     for source, destination in [(".env.example", ".env"), ("examples/knowledge.example.txt", "src/rag_system/knowledge.txt")]:
         if not (ROOT / destination).exists():
             shutil.copyfile(ROOT / source, ROOT / destination)
-    print("Setup complete. Vision demo: .venv-jarvis Python + scripts/start.py --vision-only")
+    print("Setup complete. Vision demo: .venv-koda Python + scripts/start.py --vision-only")
     if not args.vision_only:
         print("For the full assistant, install mpv/FFmpeg, fill .env API keys, then run scripts/start.py.")
 

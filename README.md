@@ -1,12 +1,12 @@
-# JARVIS
+# KODA
 
 **A personal robotics assistant that sees, listens, remembers, and responds.**
 
-![The real JARVIS prototype: controller breadboard, two-servo camera mount, wiring, and strapped mounting plate](docs/media/jarvis-overview.jpg)
+![The real KODA prototype: controller breadboard, two-servo camera mount, wiring, and strapped mounting plate](docs/media/koda-overview.jpg)
 
 [Explore the 3D model](#3d-model) · [Hardware close-ups](#the-hardware) · [Get started](#running-the-project)
 
-JARVIS combines a webcam on a two-servo mount with face tracking, hand gestures, voice interaction, and personal memory. I built it to explore how an assistant can understand both what is happening in a room and what it already knows about its user.
+KODA combines a webcam on a two-servo mount with face tracking, hand gestures, voice interaction, and personal memory. I built it to explore how an assistant can understand both what is happening in a room and what it already knows about its user.
 
 The original application was written as a hands-on learning project without AI-generated code. Repository cleanup, setup helpers, small portability fixes, and the photo-referenced 3D model were subsequently assisted by AI; the original modules and application flow are preserved.
 
@@ -18,19 +18,19 @@ The real prototype brings together a camera on a pan-and-tilt servo mount, a bre
 
 | Camera and servo assembly | Breadboard and controller |
 | --- | --- |
-| ![Close-up of the JARVIS camera, blue servos, triangular bracket, and servo arm](docs/media/jarvis-camera.jpg) | ![Close-up of the JARVIS controller board, breadboard, USB connection, and jumper wiring](docs/media/jarvis-controller.jpg) |
+| ![Close-up of the KODA camera, blue servos, triangular bracket, and servo arm](docs/media/koda-camera.jpg) | ![Close-up of the KODA controller board, breadboard, USB connection, and jumper wiring](docs/media/koda-controller.jpg) |
 
 These three photographs were selected from the original 34-image reference set to show the overall build and its two main assemblies.
 
 ## 3D model
 
-[![Photo-referenced 3D reconstruction of JARVIS](docs/media/jarvis-model-preview.png)](docs/model/README.md)
+[![Photo-referenced 3D reconstruction of KODA](docs/media/koda-model-preview.png)](docs/model/README.md)
 
 The model recreates the mounting plate, straps, pan-and-tilt camera, breadboard, controller, and wiring as 95 named component/material meshes. This edition adds SG90-style servo details, an Arduino Nano based on official CAD, a 400-socket breadboard, jumper connectors, and curved Velcro straps.
 
-- **[Download the complete 3D package](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS-3D.zip)** — GLB, OBJ/MTL, offline viewer, and editable generation source.
-- **[Download the GLB model](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS.glb)** — import into a compatible 3D editor or viewer.
-- **[Download the interactive viewer](https://github.com/kamransalahuddin/JARVIS/raw/refs/heads/main/docs/model/JARVIS-viewer.html)** — open the downloaded HTML in a browser, then drag to rotate, scroll to zoom, or use the electronics and servo close-up views. Everything is bundled for offline use.
+- **[Download the complete 3D package](docs/model/KODA-3D.zip)** — GLB, OBJ/MTL, offline viewer, and editable generation source.
+- **[Download the GLB model](docs/model/KODA.glb)** — import into a compatible 3D editor or viewer.
+- **[Download the interactive viewer](docs/model/KODA-viewer.html)** — open the downloaded HTML in a browser, then drag to rotate, scroll to zoom, or use the electronics and servo close-up views. Everything is bundled for offline use.
 - [Model details and rebuild instructions](docs/model/README.md).
 
 GitHub displays the preview above; the interactive viewer runs after download. Standard component dimensions come from hardware references; assembly placement and cable routes are estimated from the photos. This is a visual reconstruction, not a measured scan or manufacturing-ready CAD model.
@@ -54,10 +54,10 @@ For terminal setup on macOS/Linux:
 
 ```bash
 python3.11 scripts/setup.py --vision-only
-.venv-jarvis/bin/python scripts/start.py --vision-only
+.venv-koda/bin/python scripts/start.py --vision-only
 ```
 
-For the full voice assistant, run setup without `--vision-only`, fill the API keys in `.env`, then run `.venv-jarvis/bin/python scripts/start.py`. Arduino output and smart-light control are optional settings. See the [setup guide](docs/SETUP.md) for Windows commands, credentials, hardware, and troubleshooting.
+For the full voice assistant, run setup without `--vision-only`, fill the API keys in `.env`, then run `.venv-koda/bin/python scripts/start.py`. Arduino output and smart-light control are optional settings. See the [setup guide](docs/SETUP.md) for Windows commands, credentials, hardware, and troubleshooting.
 
 **Validation target: Apple Silicon macOS, Python 3.11.** Windows and Linux launch paths are provided but have not been tested on those operating systems. First-time model downloads can take several minutes. This is a working robotics prototype, not a universally validated installer.
 
@@ -66,7 +66,7 @@ Voice controls: **“stop”** pauses conversational replies, **“listen”** r
 ## Repository map
 
 ```text
-JARVIS/
+KODA/
 ├── README.md                  Project overview
 ├── Start.command / Start.bat  First-run camera demo
 ├── scripts/                   Setup and launch helpers
@@ -79,7 +79,7 @@ JARVIS/
 ├── requirements/              Direct dependencies, complete lock, experiments, archive
 └── src/
     ├── main.py                Application entry point
-    ├── jarvis_core/  Vision, voice, scene and device integration
+    ├── koda_core/  Vision, voice, scene and device integration
     └── rag_system/            Knowledge loading and embedding retrieval
 ```
 
@@ -93,4 +93,4 @@ Future work includes testing on more operating systems, improving cloud/device f
 
 ## Attribution
 
-The gesture component retains its existing [Apache 2.0 license](src/jarvis_core/LICENSE.txt) and author credit. Face tracking uses [OpenSeeFace](https://github.com/emilianavt/OpenSeeFace). See [third-party notices](docs/THIRD_PARTY.md) for component and model sources. No new project-wide license is asserted by this cleanup.
+The gesture component retains its existing [Apache 2.0 license](src/koda_core/LICENSE.txt) and author credit. Face tracking uses [OpenSeeFace](https://github.com/emilianavt/OpenSeeFace). See [third-party notices](docs/THIRD_PARTY.md) for component and model sources. No new project-wide license is asserted by this cleanup.

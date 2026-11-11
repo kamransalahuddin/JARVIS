@@ -1,6 +1,6 @@
 # Setup
 
-[Back to JARVIS](../README.md) · [Dependency inventory](DEPENDENCIES.md) · [Hardware](../hardware/README.md)
+[Back to KODA](../README.md) · [Dependency inventory](DEPENDENCIES.md) · [Hardware](../hardware/README.md)
 
 ## Fastest start: camera demo
 
@@ -15,22 +15,22 @@ On macOS, if Finder refuses to open the downloaded launcher, use the terminal in
 Equivalent terminal commands on macOS/Linux:
 
 ```bash
-git clone https://github.com/kamransalahuddin/JARVIS.git
-cd JARVIS
+git clone https://github.com/kamransalahuddin/JARVIS.git KODA
+cd KODA
 python3.11 scripts/setup.py --vision-only
-.venv-jarvis/bin/python scripts/start.py --vision-only
+.venv-koda/bin/python scripts/start.py --vision-only
 ```
 
 On Windows PowerShell:
 
 ```powershell
-git clone https://github.com/kamransalahuddin/JARVIS.git
-cd JARVIS
+git clone https://github.com/kamransalahuddin/JARVIS.git KODA
+cd KODA
 py -3.11 scripts/setup.py --vision-only
-.venv-jarvis\Scripts\python.exe scripts\start.py --vision-only
+.venv-koda\Scripts\python.exe scripts\start.py --vision-only
 ```
 
-Setup creates `.venv-jarvis`, installs packages, clones a pinned OpenSeeFace checkout, applies the author's two-line OpenCV compatibility fix, downloads vision models, and creates `.env` and starter memory **only when those files do not already exist**. It uses a dedicated `.venv-jarvis` environment, leaving an existing `.venv` untouched. It never resets an existing external checkout. If `.venv-jarvis` belongs to another project or Python version, rename it before setup.
+Setup creates `.venv-koda`, installs packages, clones a pinned OpenSeeFace checkout, applies the author's two-line OpenCV compatibility fix, downloads vision models, and creates `.env` and starter memory **only when those files do not already exist**. It uses a dedicated `.venv-koda` environment, leaving an existing `.venv` untouched. It never resets an existing external checkout. If `.venv-koda` belongs to another project or Python version, rename it before setup.
 
 **Platform status:** Apple Silicon macOS is the primary validation target (macOS 15.2, Python 3.11.15). Windows x86-64 and Linux x86-64 have setup paths and a non-MLX speech fallback, but have not been run on those operating systems. Intel macOS and other CPU/OS combinations are not validated; current dependency pins may lack wheels. Do not interpret the launchers as a claim of universal compatibility.
 
@@ -74,10 +74,10 @@ Use your own account credentials. Model/API availability and account billing are
 Then launch:
 
 ```bash
-.venv-jarvis/bin/python scripts/start.py
+.venv-koda/bin/python scripts/start.py
 ```
 
-Windows: `.venv-jarvis\Scripts\python.exe scripts\start.py`.
+Windows: `.venv-koda\Scripts\python.exe scripts\start.py`.
 
 The launcher switches to the repository root, preserving the application's existing relative file paths. Allow microphone access for the terminal/IDE running Python. The default microphone must accept mono audio at 16 kHz. Apple Silicon uses MLX Whisper; other platforms use the OpenAI Whisper `tiny` model through PyTorch.
 
@@ -105,7 +105,7 @@ The setup helper automates this work, but every input is listed here for inspect
 - Qwen: `Qwen/Qwen3-VL-Embedding-2B`, downloaded through Sentence Transformers.
 - MLX speech: `mlx-community/whisper-tiny`; other platforms: OpenAI Whisper `tiny`.
 
-Do **not** install a PyPI package named `tracker`. OpenSeeFace needs its helper modules and complete `models/` directory. Do not run `pip install .` in its checkout: its historical packaging specifies Python below 3.11 and older packages; JARVIS imports its source with the dependencies above.
+Do **not** install a PyPI package named `tracker`. OpenSeeFace needs its helper modules and complete `models/` directory. Do not run `pip install .` in its checkout: its historical packaging specifies Python below 3.11 and older packages; KODA imports its source with the dependencies above.
 
 Both OpenCV distributions are pinned to `4.11.0.86` because MediaPipe requires `opencv-contrib-python` and Ultralytics requires `opencv-python`. They share `cv2` files. Avoid independently upgrading or uninstalling one distribution; recreate the environment if OpenCV becomes damaged.
 
@@ -115,7 +115,7 @@ Both OpenCV distributions are pinned to `4.11.0.86` because MediaPipe requires `
 | --- | --- |
 | Missing Python / Git | Install the prerequisites and reopen your terminal |
 | macOS launcher not executable | Run `bash Start.command` from the extracted repo |
-| Package conflict in existing `.venv-jarvis` | Rename the environment and rerun setup; do not merge archived requirements |
+| Package conflict in existing `.venv-koda` | Rename the environment and rerun setup; do not merge archived requirements |
 | `No module named tracker` | Run setup; use `scripts/start.py` or a valid `OPENSEEFACE_PATH` |
 | Existing OpenSeeFace has another revision | Preserve it elsewhere, or use the pinned revision in a new checkout |
 | Serial port error | Correct `ARDUINO_PORT`, close Arduino Serial Monitor, or leave the port blank |
@@ -127,7 +127,7 @@ Both OpenCV distributions are pinned to `4.11.0.86` because MediaPipe requires `
 | Kasa failure | Configure all four LAN addresses; this integration does not provide authenticated-device credentials |
 | Linux GUI/audio library error | Install the system libraries listed above |
 
-Useful checks: `.venv-jarvis/bin/python -m pip check` and, after installing the full dependencies, `.venv-jarvis/bin/python -m unittest discover -s tests -v` (replace the executable path on Windows).
+Useful checks: `.venv-koda/bin/python -m pip check` and, after installing the full dependencies, `.venv-koda/bin/python -m unittest discover -s tests -v` (replace the executable path on Windows).
 
 ## Experiments
 

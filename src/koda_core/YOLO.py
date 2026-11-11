@@ -59,7 +59,7 @@ def detect_objects(img):
         print(detected)
         print(dimensions)
 
-        #sending coordinates to Jarvis
+        #sending coordinates to Koda
 
     for box in results[0].boxes:
         if int(box.cls == 0):

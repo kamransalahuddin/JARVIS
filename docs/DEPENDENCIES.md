@@ -1,6 +1,6 @@
 # Dependency inventory and validation
 
-[Back to JARVIS](../README.md) · [Setup](SETUP.md)
+[Back to KODA](../README.md) · [Setup](SETUP.md)
 
 Audited on **2026-09-19** from every Python file in this repository, installed distribution metadata, the external OpenSeeFace source/models, local model files, Arduino files, and host executables. Dependencies are grouped by what actually uses them. A package list alone cannot include accounts, model assets, device firmware, or OS permissions.
 
@@ -27,9 +27,9 @@ Audited on **2026-09-19** from every Python file in this repository, installed d
 
 **The complete Apple Silicon runtime lock contains 107 packages**, including every transitive package selected by pip. See [the lock](../requirements/macos-arm64-py311.lock.txt). These include HTTP/authentication clients, model/tokenizer utilities, scientific libraries, and native runtimes; they are installed automatically, not manually one at a time. Build-time tooling and OS packages are separate. The portable fallback and experiment manifests resolve additional platform-specific dependencies and are not covered by the macOS lock.
 
-Python's standard-library imports (`os`, `sys`, `time`, `threading`, `asyncio`, `wave`, `base64`, `pathlib`, `typing`, `platform`) require no pip installation. OpenSeeFace's training-only `model.py` imports `geffnet`; training the external project is outside JARVIS's inference path and is not installed by setup.
+Python's standard-library imports (`os`, `sys`, `time`, `threading`, `asyncio`, `wave`, `base64`, `pathlib`, `typing`, `platform`) require no pip installation. OpenSeeFace's training-only `model.py` imports `geffnet`; training the external project is outside KODA's inference path and is not installed by setup.
 
-No active JARVIS import requires ChromaDB, LangChain, Gensim, the OpenAI API client, or a running Ollama service, although unrelated packages were present in the original environment. Freezing the entire old environment would add unrelated dependencies and its conflicts.
+No active KODA import requires ChromaDB, LangChain, Gensim, the OpenAI API client, or a running Ollama service, although unrelated packages were present in the original environment. Freezing the entire old environment would add unrelated dependencies and its conflicts.
 
 ## Source and model assets
 
