@@ -1,9 +1,9 @@
 import cv2
-from jarvis_core.nose_cam import track_nose
+from koda_core.nose_cam import track_nose
 from ultralytics import YOLO
-from jarvis_core.YOLO import detect_objects
+from koda_core.YOLO import detect_objects
 from tracker import Tracker
-from jarvis_core.hand_tracker import run_hand_tracker
+from koda_core.hand_tracker import run_hand_tracker
 import os
 
 model = YOLO("yolo26n.pt")
@@ -34,7 +34,7 @@ while True:
     img = detect_objects(img)
     img = track_nose(img, tracker=tracker)
     img = run_hand_tracker(img)
-    cv2.imshow("Jarvis", img)
+    cv2.imshow("Koda", img)
     if cv2.waitKey(1) & 0xFF == 27:
         break
 

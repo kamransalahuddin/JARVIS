@@ -1,8 +1,8 @@
-# JARVIS component-reference reconstruction
+# KODA component-reference reconstruction
 
-Component-reference edition of the JARVIS model, based on the prototype photographs.
+Component-reference edition of the KODA model, based on the prototype photographs.
 
-Open JARVIS-viewer.html in a modern browser. The HTML embeds its model, textures, lighting environment, and viewer libraries and works offline. JARVIS.glb is the textured portable 3D model, in metres. Reset view, Electronics close-up, Servo close-up, orbit, zoom, wireframe, and surface texture controls are included.
+Open KODA-viewer.html in a modern browser. The HTML embeds its model, textures, lighting environment, and viewer libraries and works offline. KODA.glb is the textured portable 3D model, in metres. Reset view, Electronics close-up, Servo close-up, orbit, zoom, wireframe, and surface texture controls are included.
 
 ## What changed
 

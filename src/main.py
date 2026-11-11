@@ -1,15 +1,15 @@
 import cv2
-from jarvis_core.nose_cam import track_nose, send_coordinates_to_arduino
+from koda_core.nose_cam import track_nose, send_coordinates_to_arduino
 from ultralytics import YOLO
-from jarvis_core.YOLO import detect_objects
+from koda_core.YOLO import detect_objects
 from tracker import Tracker
-from jarvis_core.hand_tracker import run_hand_tracker
-from jarvis_core import AI
+from koda_core.hand_tracker import run_hand_tracker
+from koda_core import AI
 import threading
 import time
 import os
 # Load the model
-from jarvis_core.scene_monitor import compare_scenes, pass_image
+from koda_core.scene_monitor import compare_scenes, pass_image
 model = YOLO("yolo26n.pt")
 start = int(time.monotonic())
 
@@ -23,7 +23,7 @@ if not ret or img is None:
     raise RuntimeError("Cannot read the camera. Check camera permissions and CAMERA_INDEX in .env.")
 
 img_h, img_w = img.shape[:2]
-AI_threaded = threading.Thread(target=AI.jarvis_ai, daemon=True)
+AI_threaded = threading.Thread(target=AI.koda_ai, daemon=True)
 AI_threaded.start()
 
 
@@ -75,7 +75,7 @@ while True:
         frame_one_captured = False
         
         
-    cv2.imshow("Jarvis", img)
+    cv2.imshow("Koda", img)
     if cv2.waitKey(1) & 0xFF == 27:
         break
 

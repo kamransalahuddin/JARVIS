@@ -1,4 +1,4 @@
-"""Photo-referenced JARVIS visual replica. Model authoring units: millimetres.
+"""Photo-referenced KODA visual replica. Model authoring units: millimetres.
 Only Python stdlib + numpy required. GLB exports in metres; OBJ exports in mm.
 """
 from pathlib import Path
@@ -192,7 +192,7 @@ for (name,mat),(v,f) in parts.items():
  meshes.append(dict(name=name,material=mat,positions=flat.reshape(-1).round(5).tolist(),normals=norm.reshape(-1).round(5).tolist()))
 (P/'model-data.json').write_text(json.dumps({'materials':materials,'meshes':meshes},separators=(',',':')))
 # glTF binary, metre units, Y up.
-gltf={'asset':{'version':'2.0','generator':'JARVIS photo-reference model builder','extras':{'reference_images':34,'scale':'Estimated from photos; not measured'}},'scene':0,'scenes':[{'nodes':[]}],'nodes':[],'meshes':[],'materials':[],'buffers':[{'byteLength':0}],'bufferViews':[],'accessors':[]}
+gltf={'asset':{'version':'2.0','generator':'KODA photo-reference model builder','extras':{'reference_images':34,'scale':'Estimated from photos; not measured'}},'scene':0,'scenes':[{'nodes':[]}],'nodes':[],'meshes':[],'materials':[],'buffers':[{'byteLength':0}],'bufferViews':[],'accessors':[]}
 matids={}
 for name,(col,rough,metal) in materials.items():
  matids[name]=len(gltf['materials']);rgb=[int(col[i:i+2],16)/255 for i in (1,3,5)]
@@ -211,15 +211,15 @@ for m in meshes:
  gltf['nodes'].append({'name':m['name']+' / '+m['material'],'mesh':idx});gltf['scenes'][0]['nodes'].append(idx)
 gltf['buffers'][0]['byteLength']=len(binary)
 j=json.dumps(gltf,separators=(',',':')).encode();j+=b' '*((-len(j))%4);binary+=b'\0'*((-len(binary))%4)
-(P/'JARVIS.glb').write_bytes(struct.pack('<III',0x46546c67,2,12+8+len(j)+8+len(binary))+struct.pack('<II',len(j),0x4e4f534a)+j+struct.pack('<II',len(binary),0x004e4942)+binary)
-with (P/'JARVIS.obj').open('w') as o:
- o.write('# JARVIS visual replica. Millimetres, Y up; scale is approximate.\nmtllib JARVIS.mtl\n');offset=1
+(P/'KODA.glb').write_bytes(struct.pack('<III',0x46546c67,2,12+8+len(j)+8+len(binary))+struct.pack('<II',len(j),0x4e4f534a)+j+struct.pack('<II',len(binary),0x004e4942)+binary)
+with (P/'KODA.obj').open('w') as o:
+ o.write('# KODA visual replica. Millimetres, Y up; scale is approximate.\nmtllib KODA.mtl\n');offset=1
  for (name,mat),(v,f) in parts.items():
   o.write('o '+name.replace(' ','_')+'_'+mat+'\nusemtl '+mat+'\n')
   for p in v:o.write('v %.5f %.5f %.5f\n'%tuple(p))
   for face in f:o.write('f '+' '.join(str(x+offset) for x in face)+'\n')
   offset+=len(v)
-with (P/'JARVIS.mtl').open('w') as o:
+with (P/'KODA.mtl').open('w') as o:
  for name,(col,rough,metal) in materials.items():
   rgb=[int(col[i:i+2],16)/255 for i in (1,3,5)];o.write('newmtl '+name+'\nKd '+' '.join(map(str,rgb))+'\nKs .25 .25 .25\nNs '+str((1-rough)*150)+'\n\n')
 print(f'Created {len(meshes)} component/material meshes; {sum(len(m["positions"])//9 for m in meshes):,} triangles.')

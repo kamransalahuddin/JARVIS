@@ -1,6 +1,6 @@
 # Hardware
 
-[Back to JARVIS](../README.md)
+[Back to KODA](../README.md)
 
 A webcam is enough for the vision demo. The following hardware enables physical tracking and light control.
 

@@ -6,7 +6,7 @@ import trimesh
 from trimesh.visual.material import PBRMaterial
 from trimesh.visual.texture import TextureVisuals
 p=Path(__file__).resolve().parent
-scene=trimesh.load_scene(p/'JARVIS.glb',process=False)
+scene=trimesh.load_scene(p/'KODA.glb',process=False)
 textures={f.name:Image.open(f).convert('RGB') for f in (p/'textures').iterdir() if f.suffix in ['.jpg','.png']}
 a=-math.radians(46);R=np.array([[1,0,0],[0,math.cos(a),-math.sin(a)],[0,math.sin(a),math.cos(a)]]);C=np.array([0,64,12])
 remove=[]
@@ -69,5 +69,5 @@ for m in j['materials']:
  if 'normalTexture' in m:m['normalTexture']['scale']=.23 if 'strap' in m['name'].lower() else .10
 j['extensionsUsed']=list(set(j.get('extensionsUsed',[])+['KHR_materials_transmission','KHR_materials_ior']))
 enc=json.dumps(j,separators=(',',':')).encode();enc+=b' '*((-len(enc))%4)
-(p/'JARVIS.glb').write_bytes(struct.pack('<III',0x46546c67,2,28+len(enc)+len(binary))+struct.pack('<II',len(enc),0x4e4f534a)+enc+struct.pack('<II',len(binary),0x004e4942)+binary)
+(p/'KODA.glb').write_bytes(struct.pack('<III',0x46546c67,2,28+len(enc)+len(binary))+struct.pack('<II',len(enc),0x4e4f534a)+enc+struct.pack('<II',len(binary),0x004e4942)+binary)
 print('Textured',len(scene.geometry),'meshes; embedded',len(j.get('images',[])),'maps.')
